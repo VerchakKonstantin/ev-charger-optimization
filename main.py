@@ -28,8 +28,8 @@ for h, load in enumerate(optimum_load):
             charging.update(i={})
         if time <= h and cars_charge[i] < config.req_cars_charge[i]:
             print(h, cars_charge[i], load)
-            delta, car_charge, load, maximum_load = get_delta_load(load, maximum_load, cars_charge[i],
-                                                                   config.req_cars_charge[i], h,
+            delta, car_charge, load, maximum_load = get_delta_load(load, maximum_load, config.maximum_mode[i],
+                                                                   cars_charge[i], config.req_cars_charge[i], h,
                                                                    config.cars_time[i], config.mode)
             load -= delta
             cars_charge[i] = car_charge
