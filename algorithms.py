@@ -49,10 +49,10 @@ def get_delta_load(optimum_load: int, maximum_load: int, maximum_mode: list, car
             delta = maximum_mode
         else:
             delta = optimum_load
-    for i in mode:
-        charge = i.split('-')
-        if int(charge[0]) <= car_charge <= int(charge[1]) and delta > mode[i]:
-            delta = mode[i]
+    # for i in mode:
+    #     charge = i.split('-')
+    #     if int(charge[0]) <= car_charge <= int(charge[1]) and delta > mode[i]:
+    #         delta = mode[i]
     car_charge += delta
     optimum_load -= delta
     maximum_load -= delta
