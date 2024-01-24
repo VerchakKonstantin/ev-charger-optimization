@@ -31,7 +31,7 @@ def get_min_hours(cars_start_time: list, optimum: list, maximum_mode: list, cars
 
 
 def get_delta_load(optimum_load: int, maximum_load: int, maximum_mode: list, car_charge: float,
-                   req_car_charge: float, time: int, end: int, mode: dict):
+                   req_car_charge: float, time: int, end: int, mode: dict = 0):
     """
     function calculate delta load for charging the car
     :param optimum_load: optimum load at present hour
@@ -43,17 +43,17 @@ def get_delta_load(optimum_load: int, maximum_load: int, maximum_mode: list, car
     :param mode: mode of charging
     :return: delta load, car charge, optimum load and maximum load
     """
-    delta = (req_car_charge - car_charge) / (end - time)
+    delta = round((req_car_charge - car_charge) / (end - time), 2)
     if delta > optimum_load:
         if maximum_mode:
             delta = maximum_mode
         else:
             delta = optimum_load
-    # for i in mode:
-    #     charge = i.split('-')
-    #     if int(charge[0]) <= car_charge <= int(charge[1]) and delta > mode[i]:
-    #         delta = mode[i]
+    if mode != 0:
+        for i in mode:
+            charge = i.split('-')
+            if int(charge[0]) <= car_charge <= int(charge[1]) and delta > mode[i]:
+                delta = mode[i]
     car_charge += delta
-    optimum_load -= delta
     maximum_load -= delta
-    return delta, round(car_charge, 2), optimum_load, maximum_load
+    return delta, round(car_charge, 2), maximum_load
